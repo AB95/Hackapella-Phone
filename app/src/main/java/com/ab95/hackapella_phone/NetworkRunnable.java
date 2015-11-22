@@ -68,7 +68,13 @@ public class NetworkRunnable implements Runnable {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 }
 
-                send(locationToString(location));
+                try {
+                    send(locationToString(location));
+                }
+                catch (NullPointerException e) {
+                    send("0,0,0,");
+                }
+
                 socket.close();
                 serverSocket.close();
             }
